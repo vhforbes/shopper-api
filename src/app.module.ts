@@ -6,6 +6,7 @@ import { CustomerModule } from './customer/customer.module';
 import { GeminiService } from './gemini/gemini.service';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { ImageUploadModule } from './image-upload/image-upload.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { join } from 'path';
       rootPath: join(__dirname, '..', 'images'),
       serveRoot: '/app/images/',
     }),
+    ImageUploadModule,
   ],
   controllers: [],
   providers: [GeminiService],

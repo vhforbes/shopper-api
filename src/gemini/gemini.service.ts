@@ -2,13 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { IAIService } from 'src/common/interfaces/IAIService';
 import { GoogleAIFileManager } from '@google/generative-ai/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import * as fs from 'fs';
-import * as path from 'path';
 import { ConfigService } from '@nestjs/config';
+import { ImageUploadService } from 'src/image-upload/image-upload.service';
 
 @Injectable()
 export class GeminiService implements IAIService {
-  constructor(private configService: ConfigService) {} // Inject ConfigService
+  constructor(
+    private configService: ConfigService,
+    private imageUploadService: ImageUploadService,
+  ) {}
 
   async getPictureReading({
     imageBase64,
@@ -20,30 +22,11 @@ export class GeminiService implements IAIService {
     image_url: string;
     measure_value: number;
   }> {
-    // I would upload to a S3 here and have this in another service but for spped sake ill just store it locally
-    // TODO: Upload with diff file names
-    const uploadFile = (imageBase64: string) => {
-      const dir = path.join(__dirname, '../../images');
+    const imagePath = this.imageUploadService.uploadFile({
+      imageBase64,
+      fileName: measure_datetime,
+    });
 
-      if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
-        console.log(`Directory created: ${dir}`);
-      }
-
-      try {
-        const buffer = Buffer.from(imageBase64, 'base64');
-        const filePath = path.join(dir, `${measure_datetime}.jpg`); // Use absolute path for writing the file
-        fs.writeFileSync(filePath, buffer);
-        console.log(`File written successfully: ${filePath}`);
-
-        return filePath;
-      } catch (error) {
-        console.error('Error writing file:', error);
-        throw new Error('Failed to save image');
-      }
-    };
-
-    const imagePath = uploadFile(imageBase64);
     const apiKey = this.configService.get<string>('GEMINI_API_KEY');
 
     const fileManager = new GoogleAIFileManager(apiKey);
@@ -72,6 +55,7 @@ export class GeminiService implements IAIService {
 
     // Maybe add a treatment here if it cant find the number
     // What do we wan't to do? Prompt the user to upload again?
+    // Since its not defined im returning it as 0
 
     return {
       image_url: imagePath,
