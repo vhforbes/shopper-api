@@ -8,6 +8,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { ImageUploadModule } from './image-upload/image-upload.module';
 import { ImageUploadService } from './image-upload/image-upload.service';
+import { ImageCleanupModule } from './image-cleanup/image-cleanup.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { ImageUploadService } from './image-upload/image-upload.service';
     MeasureModule,
     CustomerModule,
     ImageUploadModule,
+    ImageCleanupModule,
   ],
   controllers: [],
   providers: [GeminiService],
