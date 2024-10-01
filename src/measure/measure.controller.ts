@@ -11,8 +11,9 @@ import {
   Query,
 } from '@nestjs/common';
 import { MeasureService } from './measure.service';
-import { IErrorResponse } from 'src/common/interfaces/IErrorResponse';
 import { ConfirmMeasureDto, ProcessImageDto } from './interfaces';
+import { IErrorResponse } from '@app/common/interfaces/IErrorResponse';
+import { MeasureEntity } from './measure.entity';
 
 @Controller()
 export class MeasureController {
@@ -22,7 +23,9 @@ export class MeasureController {
   async getMeasures(
     @Param('customer_code') customer_code: string,
     @Query('measure_type') measure_type?: 'WATER' | 'GAS',
-  ): Promise<any> {
+  ): Promise<
+    { customer_code: string; measures: MeasureEntity[] } | IErrorResponse
+  > {
     if (measure_type && measure_type !== 'WATER' && measure_type !== 'GAS') {
       throw new BadRequestException({
         error_code: 'INVALID_MEASURE_TYPE',
@@ -52,7 +55,7 @@ export class MeasureController {
   @Patch('confirm')
   async confirmMeasure(
     @Body() body: ConfirmMeasureDto,
-  ): Promise<{ success: boolean }> {
+  ): Promise<{ success: boolean } | IErrorResponse> {
     if (!body.measure_uuid || !body.confirmed_value) {
       throw new BadRequestException({
         error_code: 'INVALID_DATA',

@@ -3,11 +3,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MeasureEntity } from './measure.entity';
 import { MeasureService } from './measure.service';
 import { MeasureController } from './measure.controller';
-import { GeminiModule } from 'src/gemini/gemini.module';
-import { GeminiService } from 'src/gemini/gemini.service';
-import { IAIServiceToken } from 'src/common/interfaces/IAIService';
 import { ConfigModule } from '@nestjs/config';
-import { ImageUploadModule } from 'src/image-upload/image-upload.module';
+import { GeminiModule } from '@app/gemini/gemini.module';
+import { ImageUploadModule } from '@app/image-upload/image-upload.module';
+import { IAIServiceToken } from '@app/common/interfaces/IAIService';
+import { GeminiService } from '@app/gemini/gemini.service';
 
 @Module({
   imports: [

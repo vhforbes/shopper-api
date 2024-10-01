@@ -1,9 +1,8 @@
+import { CustomerEntity } from '@app/customer/customer.entity';
+import { MeasureEntity } from '@app/measure/measure.entity';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-
-import { CustomerEntity } from 'src/customer/customer.entity';
-import { MeasureEntity } from 'src/measure/measure.entity';
 
 @Module({
   imports: [

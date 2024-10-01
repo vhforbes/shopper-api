@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { IAIService } from 'src/common/interfaces/IAIService';
 import { GoogleAIFileManager } from '@google/generative-ai/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { ConfigService } from '@nestjs/config';
-import { ImageUploadService } from 'src/image-upload/image-upload.service';
+import { ImageUploadService } from '../image-upload/image-upload.service';
+import { IAIService } from '@app/common/interfaces/IAIService';
 
 @Injectable()
 export class GeminiService implements IAIService {

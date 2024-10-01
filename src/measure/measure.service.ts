@@ -1,11 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IAIService, IAIServiceToken } from 'src/common/interfaces/IAIService';
 import { MeasureEntity } from './measure.entity';
 import { Between, Repository } from 'typeorm';
 import { ConfirmMeasureDto, ProcessImageDto } from './interfaces';
 import { endOfMonth, startOfMonth } from 'date-fns';
 import { ConfigService } from '@nestjs/config';
+import { IAIService, IAIServiceToken } from '@app/common/interfaces/IAIService';
 
 @Injectable()
 export class MeasureService {
