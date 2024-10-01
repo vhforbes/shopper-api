@@ -1,3 +1,10 @@
+# Bem vindo ao meu repositório
+
+Todo o desenvolvimento foi feito de acordo com as solicitações. A única diferença está em uma rota extra para criar customers /create-customer.
+Ela é bem simples e só foi feita para facilitar os testes caso necessário. Ela é um POST e seus parametros são `email` e `name` no corpo da requisitação.
+
+Agradeço muito a oportunidade!
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
