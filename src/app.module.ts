@@ -7,6 +7,7 @@ import { GeminiService } from './gemini/gemini.service';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { ImageUploadModule } from './image-upload/image-upload.module';
+import { ImageUploadService } from './image-upload/image-upload.service';
 
 @Module({
   imports: [
@@ -14,12 +15,12 @@ import { ImageUploadModule } from './image-upload/image-upload.module';
     ConfigModule.forRoot({
       envFilePath: '.env',
     }),
-    MeasureModule,
-    CustomerModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'images'),
       serveRoot: '/app/images/',
     }),
+    MeasureModule,
+    CustomerModule,
     ImageUploadModule,
   ],
   controllers: [],
