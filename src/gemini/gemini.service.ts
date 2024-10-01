@@ -36,11 +36,6 @@ export class GeminiService implements IAIService {
       displayName: 'Jetpack drawing',
     });
 
-    // View the response.
-    console.log(
-      `Uploaded file ${uploadResult.file.displayName} as: ${uploadResult.file.uri}`,
-    );
-
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
     const result = await model.generateContent([

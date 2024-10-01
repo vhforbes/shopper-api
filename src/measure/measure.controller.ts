@@ -134,8 +134,6 @@ export class MeasureController {
       };
     } catch (error) {
       console.error(error);
-
-      // TODO: I NEED TO THROW THIS ERROR IN THE SERVICE
       if (error.message === 'DOUBLE_REPORT') {
         throw new ConflictException({
           error_code: 'DOUBLE_REPORT',

@@ -93,8 +93,6 @@ export class MeasureService {
       { imageBase64: image, measure_datetime: measure_datetime },
     );
 
-    console.log('URL', this.configService.get<string>('API_BASE_URL'));
-
     const adjustedImageUrl =
       this.configService.get<string>('API_BASE_URL') + image_url;
 
