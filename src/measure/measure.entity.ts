@@ -1,6 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { CustomerEntity } from 'src/customer/customer.entity';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
-@Entity('measure')
+@Entity({ name: 'measure' })
 export class MeasureEntity {
   @PrimaryGeneratedColumn('uuid')
   measure_uuid: string;
@@ -16,4 +23,8 @@ export class MeasureEntity {
 
   @Column({ type: 'timestamp' })
   measure_datetime: Date;
+
+  @ManyToOne(() => CustomerEntity)
+  @JoinColumn({ name: 'customer_code' })
+  customer: CustomerEntity;
 }

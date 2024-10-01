@@ -8,6 +8,10 @@ export class GeminiService implements IAIService {
   }: {
     imageBase64: string;
   }): Promise<number> {
+    console.log('MAKING REQUEST TO GEMNI');
+
+    return 64;
+
     const response = await fetch('https://api.gemini.com/v1/your-endpoint', {
       method: 'POST',
       headers: {

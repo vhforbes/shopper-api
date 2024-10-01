@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CustomerEntity } from 'src/customer/customer.entity';
+import { MeasureEntity } from 'src/measure/measure.entity';
 
 @Module({
   imports: [
+    ConfigModule,
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -14,7 +17,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
-        synchronize: true, // Set to false in production
+        entities: [CustomerEntity, MeasureEntity],
+        synchronize: true, // REMOVE IN PROD
+        logging: true,
       }),
     }),
   ],
