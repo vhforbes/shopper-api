@@ -5,7 +5,7 @@ import { Between, Repository } from 'typeorm';
 import { ConfirmMeasureDto, ProcessImageDto } from './interfaces';
 import { endOfMonth, startOfMonth } from 'date-fns';
 import { ConfigService } from '@nestjs/config';
-import { IAIService, IAIServiceToken } from '@app/common/interfaces/IAIService';
+import { IAIService, IAIServiceToken } from '../common/interfaces/IAIService';
 
 @Injectable()
 export class MeasureService {

@@ -1,4 +1,4 @@
-import { CustomerEntity } from '@app/customer/customer.entity';
+import { CustomerEntity } from '../customer/customer.entity';
 import {
   Column,
   Entity,
