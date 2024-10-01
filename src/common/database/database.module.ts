@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { CustomerEntity } from 'src/customer/customer.entity';
 import { MeasureEntity } from 'src/measure/measure.entity';
 
@@ -18,8 +19,7 @@ import { MeasureEntity } from 'src/measure/measure.entity';
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
         entities: [CustomerEntity, MeasureEntity],
-        synchronize: true, // REMOVE IN PROD
-        logging: true,
+        synchronize: true,
       }),
     }),
   ],

@@ -15,6 +15,9 @@ export class MeasureEntity {
   @Column({ type: 'varchar', length: 255 })
   measure_type: string;
 
+  @Column({ type: 'float' })
+  measure_value: number;
+
   @Column({ type: 'varchar', length: 255 })
   image_url: string;
 
