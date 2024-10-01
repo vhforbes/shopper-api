@@ -10,7 +10,13 @@ import { ConfigService } from '@nestjs/config';
 export class GeminiService implements IAIService {
   constructor(private configService: ConfigService) {} // Inject ConfigService
 
-  async getPictureReading({ imageBase64 }: { imageBase64: string }): Promise<{
+  async getPictureReading({
+    imageBase64,
+    measure_datetime,
+  }: {
+    imageBase64: string;
+    measure_datetime: string;
+  }): Promise<{
     image_url: string;
     measure_value: number;
   }> {
@@ -26,7 +32,7 @@ export class GeminiService implements IAIService {
 
       try {
         const buffer = Buffer.from(imageBase64, 'base64');
-        const filePath = path.join(dir, 'new-path.jpg'); // Use absolute path for writing the file
+        const filePath = path.join(dir, `${measure_datetime}.jpg`); // Use absolute path for writing the file
         fs.writeFileSync(filePath, buffer);
         console.log(`File written successfully: ${filePath}`);
 

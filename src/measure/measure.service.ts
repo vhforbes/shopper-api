@@ -5,10 +5,13 @@ import { MeasureEntity } from './measure.entity';
 import { Between, Repository } from 'typeorm';
 import { ConfirmMeasureDto, ProcessImageDto } from './interfaces';
 import { endOfMonth, startOfMonth } from 'date-fns';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class MeasureService {
   constructor(
+    private configService: ConfigService,
+
     @Inject(IAIServiceToken)
     private readonly aiService: IAIService,
 
@@ -87,12 +90,17 @@ export class MeasureService {
     }
 
     const { measure_value, image_url } = await this.aiService.getPictureReading(
-      { imageBase64: image },
+      { imageBase64: image, measure_datetime: measure_datetime },
     );
+
+    console.log('URL', this.configService.get<string>('API_BASE_URL'));
+
+    const adjustedImageUrl =
+      this.configService.get<string>('API_BASE_URL') + image_url;
 
     const newMeasure = await this.createMeasure({
       measure_type,
-      image_url,
+      image_url: adjustedImageUrl,
       customer_code,
       measure_datetime,
       measure_value,
@@ -100,8 +108,8 @@ export class MeasureService {
 
     return {
       measure_uuid: newMeasure.measure_uuid,
-      measure_value,
-      image_url,
+      measure_value: newMeasure.measure_value,
+      image_url: newMeasure.image_url,
     };
   }
 
